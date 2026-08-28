@@ -56,45 +56,12 @@ router.post('/upload', optionalVerifyToken, upload.single('file'), async (req, r
         // ------------------------------------------------------------------
         // LOGIC: File Type Handling
         // ------------------------------------------------------------------
-        // Allowed: CSV, TXT, DOCX, DOC
-        // Rejected: PDF, Excel, JSON, etc.
-        const allowedExtensions = ['csv', 'txt', 'docx', 'doc', 'pdf'];
+        // Allowed: DOCX, DOC, PDF
+        const allowedExtensions = ['docx', 'doc', 'pdf'];
         if (!allowedExtensions.includes(ext)) {
             // Delete the uploaded file immediately if it's not allowed
             try { fs.unlinkSync(file.path); } catch (e) { }
-            return res.status(400).json({ detail: `Unsupported file type: ${ext}. Only CSV, PDF, TXT, and Word files are allowed.` });
-        }
-
-        const FileModel = require('../models/FileModel');
-
-        // ...
-
-        // If CSV, it's for EDA.
-        if (ext === 'csv') {
-            try {
-                // Read content to save to DB (Vercel Fix)
-                const content = fs.readFileSync(file.path, 'utf8');
-
-                const fileDoc = new FileModel({
-                    filename: file.originalname,
-                    content: content,
-                    mimeType: 'text/csv'
-                });
-                await fileDoc.save();
-
-                // Delete local temp file immediately as we have it in DB
-                fs.unlinkSync(file.path);
-
-                return res.json({
-                    filename: file.originalname,
-                    status: "stored_for_eda",
-                    chunks: 0,
-                    file_path: `db://${fileDoc._id}` // Special Protocol for Chat Router
-                });
-            } catch (err) {
-                console.error("DB Save Error", err);
-                return res.status(500).json({ detail: "Failed to persist file." });
-            }
+            return res.status(400).json({ detail: `Unsupported file type: ${ext}. Only PDF and Word (.doc, .docx) files are allowed.` });
         }
 
         // LOGIC: RAG Processing

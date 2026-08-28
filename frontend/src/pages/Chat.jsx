@@ -325,6 +325,15 @@ const Chat = () => {
             const selectedFile = e.target.files[0];
             if (!selectedFile) return;
 
+            // File Type Check (Only PDF and Word doc/docx allowed)
+            const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+            const allowedExtensions = ['pdf', 'doc', 'docx'];
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert("Only PDF and Word (.doc, .docx) files are allowed.");
+                if (fileInputRef.current) fileInputRef.current.value = '';
+                return;
+            }
+
             // File Size Check (Limit 5MB to prevent token overflow)
             if (selectedFile.size > 5 * 1024 * 1024) {
                 alert("File is too large. Please upload files smaller than 5MB.");
@@ -678,7 +687,7 @@ const Chat = () => {
                             ref={fileInputRef}
                             onChange={handleFileChange}
                             className="hidden"
-                            accept=".pdf,.docx,.txt,.csv"
+                            accept=".pdf,.doc,.docx"
                         />
 
                         {/* Attach Button */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, MessageSquare, LogOut, LogIn, Settings as SettingsIcon, Menu, X, MoreVertical, Pencil, Trash2, Pin, Check, PieChart } from 'lucide-react';
+import { Plus, MessageSquare, LogOut, LogIn, Settings as SettingsIcon, Menu, X, MoreVertical, Pencil, Trash2, Pin, Check, FileText } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
@@ -104,9 +104,9 @@ const Sidebar = () => {
                     {!isCollapsed && (
                         <div className="flex items-center gap-3 font-bold text-xl tracking-tight text-zinc-900 dark:text-white">
                             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
-                                <PieChart size={18} />
+                                <FileText size={18} />
                             </div>
-                            DataLens
+                            rag-qa
                         </div>
                     )}
 

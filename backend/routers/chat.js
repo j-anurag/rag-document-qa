@@ -113,7 +113,7 @@ router.post('/', optionalVerifyToken, async (req, res) => {
 
         // ...
 
-        if (file_path) {
+        if (file_path && file_path.toLowerCase().endsWith('.csv')) {
             try {
                 // RESTORE FILE IF FROM DB (Vercel Fix)
                 if (file_path.startsWith('db://')) {
