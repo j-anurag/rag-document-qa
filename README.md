@@ -4,11 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <!-- You can add a logo image here if you have one -->
-  </a>
-
-  <h3 align="center">DataLens AI</h3>
+  <h3 align="center">rag-qa</h3>
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -20,21 +16,20 @@
   | :--- | :--- | :--- |
   | 1 | [About The Project](#about-the-project) | Overview, features, and tech stack |
   | 2 | [Getting Started](#getting-started) | Prerequisites and installation guide |
-  | 3 | [Usage](#usage) | How to use the agent, EDA, and charts |
+  | 3 | [Usage](#usage) | How to upload files and ask questions |
   | 4 | [Key Features](#key-features) | Detailed breakdown of capabilities |
-  | 5 | [Roadmap](#roadmap) | Planned improvements |
+  | 5 | [File Structure](#file-structure) | Project files layout |
   | 6 | [Contributing](#contributing) | Guidelines for contributing |
-  | 7 | [License](#license) | MIT License compliance |
-  | 8 | [Contact](#contact) | Author contact information |
+  | 7 | [Contact](#contact) | Author contact information |
 
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-**DataLens AI** is an intelligent, full-stack data analysis platform designed to bridge the gap between complex datasets and actionable insights. It combines the reasoning power of Large Language Models (LLMs) via Groq with specialized ReAct agents to perform **Exploratory Data Analysis (EDA)**, visualizaton, and document research.
+**rag-qa** is an intelligent, full-stack document analysis platform designed to bridge the gap between unstructured documents and actionable information. It combines the reasoning power of Large Language Models (LLMs) via Groq with specialized LangChain vector search to perform Retrieval-Augmented Generation (RAG) on your documents.
 
-Unlike generic chatbots, DataLens AI understands your data structure. Upload a CSV, and it acts as a Junior Data Analyst—cleaning data, running Python-like logic (Pandas/Numpy equivalents), and generating interactive, downloadable charts on command.
+Unlike generic chatbots, **rag-qa** focuses strictly on extracting text and providing accurate answers directly sourced from your uploaded PDF, DOC, and DOCX documents with citations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -56,11 +51,7 @@ This project exploits a modern, high-performance tech stack:
 <!-- KEY FEATURES -->
 ## Key Features
 
-*   **📊 Advanced EDA Agent**: Upload `.csv` datasets and ask complex questions like "Correlate salary with age" or "Show me outliers in sales".
-*   **📈 Interactive Visualizations**: Automatically generates Bar, Line, Pie, Scatter, and Area charts based on your data.
-    *   **Downloads**: Export any chart as a high-quality SVG image.
-    *   **Aggregation**: Intelligent grouping for Pie and Bar charts (e.g., automatically counts categories).
-*   **📂 Intelligent RAG**: Upload PDF, DOCX, or TXT files. The agent reads, understands, and answers questions with citations.
+*   **📂 Intelligent RAG**: Upload `.pdf`, `.doc`, or `.docx` files. The agent automatically reads, chunks, embeds, and answers questions with direct citations.
 *   **🛡️ Large File Protection**: Smart token management prevents crashes with large files (>5MB limits, optimized prompting).
 *   **💬 Persistent Workspace**: Real-time chat history with session management, pinned chats, and duplicate prevention.
 *   **🎨 Adaptive UI**: Beautiful, glassmorphic design with full **Dark/Light Mode** support.
@@ -71,7 +62,7 @@ This project exploits a modern, high-performance tech stack:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get your own DataLens AI analyst running locally:
+To get your own **rag-qa** analyst running locally:
 
 ### Prerequisites
 
@@ -83,8 +74,8 @@ To get your own DataLens AI analyst running locally:
 
 1.  **Clone the repository**
     ```sh
-    git clone https://github.com/github_username/repo_name.git
-    cd genai-rag-app
+    git clone https://github.com/j-anurag/rag-document-qa.git
+    cd rag-document-qa/rag-document-qa
     ```
 
 2.  **Backend Setup**
@@ -114,17 +105,13 @@ To get your own DataLens AI analyst running locally:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-1.  **Analyze Data**: 
-    - Click the 📎 icon to attach a CSV file (e.g., `sales_data.csv`).
-    - Ask: *"Visualize the total sales per region as a bar chart."*
-    - The agent will generate the chart. Hover over the top-right of the chart to **Download** it.
-
-2.  **Research Documents**: 
-    - Upload a PDF report.
+1.  **Research Documents**: 
+    - Click the 📎 icon to attach a PDF or Word document (e.g., `.docx`, `.doc`).
     - Ask: *"Summarize the key findings regarding Q3 performance."*
+    - The assistant will query the document context and generate the answer with citations.
 
-3.  **Chat History**: 
-    - Access past analyses from the sidebar. 
+2.  **Chat History**: 
+    - Access past document QA sessions from the sidebar. 
     - Pin important insights for quick access.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -133,32 +120,20 @@ To get your own DataLens AI analyst running locally:
 ## File Structure
 
 ```text
-genai-rag-app/
+rag-document-qa/
 ├── backend/
-│   ├── models/       # Mongoose Schemas (User, Message, etc.)
+│   ├── models/       # Mongoose Schemas (User, Message, File)
 │   ├── routers/      # Express Routes (Chat, Auth, Documents)
-│   ├── tools/        # LangChain Tools (Chart Generation)
-│   ├── utils/        # Data Processing & Chart Logic
+│   ├── utils/        # File Text Extractors & Vector Store Logic
 │   └── main.js       # Server Entry Point
 ├── frontend/
 │   ├── src/
-│   │   ├── components/ # UI Components (ChartRenderer, Sidebar)
-│   │   ├── pages/      # Views (Chat, Login)
+│   │   ├── components/ # UI Components (Sidebar, Layout)
+│   │   ├── pages/      # Views (Chat, Login, Settings)
 │   │   └── api.js      # Axios Setup
 │   └── index.html
 └── README.md
 ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] **Core Agent**: LangChain ReAct capabilities.
-- [x] **EDA Engine**: Pandas-like data processing in Node.js.
-- [x] **Visualizations**: Interactive Recharts integration.
-- [x] **User Experience**: Dark/Light mode, Chat History, File Uploads.
-- [ ] **Multi-File Analysis**: Correlate data across multiple uploaded CSVs.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
